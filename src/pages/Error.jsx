@@ -23,7 +23,6 @@ function ErrorPage() {
   return (
     <Wrapper>
       <div className="error-page">
-        <img src={img} alt="not found" />
         <h1>500</h1>
         <h3>Sorry, something went wrong on our end.</h3>
         <Link to="/" className="btn">

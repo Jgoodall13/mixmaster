@@ -7,9 +7,13 @@ import {
   HomeLayout,
   Landing,
   Newsletter,
+  SinglePageError,
 } from "./pages";
 
 import { loader as landingLoader } from "./pages/Landing";
+import { loader as singleCocktailLoader } from "./pages/Cocktail";
+
+import { action as newsLetterAction } from "./pages/Newsletter";
 
 const router = createBrowserRouter([
   {
@@ -19,25 +23,28 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: landingLoader,
         element: <Landing />,
+        errorElement: <SinglePageError />,
+        loader: landingLoader,
+      },
+      {
+        path: "cocktail/:id",
+        element: <Cocktail />,
+        errorElement: <SinglePageError />,
+        loader: singleCocktailLoader,
       },
       {
         path: "about",
         element: <About />,
       },
       {
-        path: "cocktail",
-        element: <Cocktail />,
+        path: "newsletter",
+        element: <Newsletter />,
+        action: newsLetterAction,
       },
       {
         path: "error",
         element: <Error />,
-      },
-
-      {
-        path: "newsletter",
-        element: <Newsletter />,
       },
     ],
   },
@@ -45,13 +52,7 @@ const router = createBrowserRouter([
 
 const App = () => {
   return (
-    <RouterProvider
-      future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
-      }}
-      router={router}
-    />
+    <RouterProvider router={router} fallbackElement={<div>Loading...</div>} />
   );
 };
 export default App;
